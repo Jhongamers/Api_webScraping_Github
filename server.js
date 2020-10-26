@@ -120,7 +120,10 @@ if(await page.$('.d-inline a') !== null){
      await browser.close()
 
            
-           }          
+           } 
+           app.get('/',cors(),(req,res) =>{
+          res.send('executando cara')             
+           } )         
      app.get('/:user/:repository',cors(),(req,res) =>{
         if(!fs.existsSync('input.json')){
         res.send('aguarde um minuto arquivo carregando')
