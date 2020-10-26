@@ -92,7 +92,8 @@ async function start(user,repository){
     for(let j=0;j<res.length;j++){
    
             await page.goto(res[j],{waitUntil: 'load'})
-            jso.push(await getInfoLinesBit(page))          
+            jso.push(await getInfoLinesBit(page))       
+               
     }
   }
     
@@ -102,15 +103,13 @@ async function start(user,repository){
   
   await page.goto(`https://github.com/${user}/${repository}`)
 
-if(await page.$('.d-inline a') !== null){
+
   await clickInPageCurrent(page,'.d-inline a')
-}else{
-  await LanguageCategory(page,'a.js-navigation-open.link-gray-dark')
-}
+
   page.goForward()
  
   await LanguageCategory(page,'.filter-item')
-    console.log(jso)
+
     fs.writeFile('input.json',JSON.stringify(jso,null,2), function(err) {
       if (err) {
          return console.error(err);
