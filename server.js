@@ -97,7 +97,7 @@ async function start(user,repository){
     }
   }
     
-   const browser = await puppeteer.launch({headless:false})
+   const browser = await puppeteer.launch()
    const page = await browser.newPage()
   
   
