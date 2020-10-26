@@ -5,20 +5,27 @@ const cors      = require('cors')
 const app       = express()
 const jso       = []
 
-/*start is a function used for start in code the user insert the name of user and
-name of repository example the repository link is http://github.com/Jhongamers/note
+/*
+        ----------start-----------
+start is a function used for start  code the user insert the name of user and
+repository name, example the repository link is http://github.com/Jhongamers/note
        the user use link api http://localhost/Jhongamers/note
-       only /Jhongamers/note  in api you wait 1 minute for scraping ,when you loading page ,all data in page
+       only /Jhongamers/note  in api you wait 1 minute the scraping ,while you loading page ,all data in page
 */
 async function start(user,repository){
-    ///this is function get name of files for display in screen 
+    /*
+          --------------getNameFiles--------------
+    this is function get name of files for displayed in screen  
+    */
   async function getNameFiles(page,selector){
        const filesnames = await page.$$eval(selector, links => links.map(link =>link.innerText))
       
          return filesnames
        
      }    
-   /*   this is function is used for to pick up the numbers of lines of files and bit of files and name of files
+   /*  
+                ---------getInfoLinesBit---------
+   this is function is used for to pick up the numbers of lines of files and bit of files and name of files
         for to work with this info
 */
      async function getInfoLinesBit(page){
@@ -96,20 +103,25 @@ async function start(user,repository){
                
     }
   }
-    
-   const browser = await puppeteer.launch({ args: ['--no-sandbox'] })
+    /*      ------puppeteer------
+    I am using puppeteer he simulate chrome 
+    he is very good for webscraping
+
+
+     */
+   const browser = await puppeteer.launch({ args: ['--no-sandbox'] }
    const page = await browser.newPage()
   
   
-  await page.goto(`https://github.com/${user}/${repository}`)
+  await page.goto(`https://github.com/${user}/${repository}`)  //this function execute the repository of user that pick up more this is function this working only my repository 
 
 
-  await clickInPageCurrent(page,'.d-inline a')
+  await clickInPageCurrent(page,'.d-inline a') 
 
   page.goForward()
  
   await LanguageCategory(page,'.filter-item')
-
+      // I am too  using the file system the module of nodejs for save file,this function we can could by used after for save json in my server ,for when work only my repository 
     fs.writeFile('input.json',JSON.stringify(jso,null,2), function(err) {
       if (err) {
          return console.error(err);
@@ -119,6 +131,8 @@ async function start(user,repository){
 
            
            } 
+           //express is module the nodejs for to work with application web this is module facilite we work 
+           //this is function  bellow work verify if we file exist , if no he create if exist he read the we file 
            app.get('/',cors(),(req,res) =>{
           res.send('executando cara')             
            } )         
