@@ -3,7 +3,7 @@ const puppeteer = require('puppeteer')
 const fs        = require('fs')
 const cors      = require('cors')
 const app       = express()
-const port      = 3000
+const port      = 3000 
 const jso       = []
 
 /*start is a function used for start in code the user insert the name of user and
@@ -139,6 +139,6 @@ if(await page.$('.d-inline a') !== null){
  
 
    
-    app.listen(port,() =>{
+    app.listen(process.env.PORT || port,() =>{
           console.log('rooting server')
     })
